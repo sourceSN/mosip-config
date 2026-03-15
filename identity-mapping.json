@@ -31,10 +31,10 @@
 			"value": "introducerName"
 		},
 		"phone": {
-			"value": "phone"
+			"value": "phoneNumber"
 		},
 		"phoneNumber": {
-			"value": "phone"
+			"value": "phoneNumber"
 		},
 		"email": {
 			"value": "email"
@@ -70,34 +70,34 @@
 			"value": "preferredLang"
 		},
 		"locationHierarchyForProfiling": {
-			"value": "zone,postalCode"
+			"value": "fullAddress"
 		},
 		"addressLine1": {
-			"value": "addressLine1"
+			"value": "fullAddress"
 		},
 		"addressLine2": {
-			"value": "addressLine2"
+			"value": "fullAddress"
 		},
 		"addressLine3": {
-			"value": "addressLine3"
+			"value": "fullAddress"
 		},
 		"location1": {
-			"value": "city"
+			"value": "fullAddress"
 		},
 		"location2": {
-			"value": "region"
+			"value": "fullAddress"
 		},
 		"location3": {
-			"value": "province"
+			"value": "fullAddress"
 		},
 		"postalCode": {
-			"value": "postalCode"
+			"value": "fullAddress"
 		},
 		"location4": {
-			"value": "zone"
+			"value": "fullAddress"
 		},
 		"fullAddress": {
-			"value": "addressLine1,addressLine2,addressLine3,city,region,province,postalCode"
+			"value": "fullAddress"
 		},
 		"bestTwoFingers": {
 			"value": "bestTwoFingers"
@@ -109,10 +109,10 @@
 			"value": "face"
 		},
 		"phone_number": {
-			"value": "phone"
+			"value": "phoneNumber"
 		},
 		"address": {
-			"value": "addressLine1,addressLine2,addressLine3,city,region,province,postalCode"
+			"value": "fullAddress"
 		},
 
 		"individual_id": {
@@ -122,19 +122,19 @@
 		   "value": "fln,ad1,ad2,ad3,cit,reg,pro,poc,cph,em,ph,gen,dob"
 		},  
 		"street_address": {
-			"value": "addressLine1,addressLine2,addressLine3"
+			"value": "fullAddress"
 		},
 		"locality": {
-			"value": "city"
+			"value": "fullAddress"
 		},
 		"region": {
-			"value": "region"
+			"value": "fullAddress"
 		},
 		"postal_code": {
-			"value": "postalCode"
+			"value": "fullAddress"
 		},
 		"country": {
-			"value": "province"
+			"value": "fullAddress"
 		},
 		"password": {
 			"value": "password"
