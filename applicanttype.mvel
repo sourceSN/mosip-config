@@ -26,9 +26,13 @@ def isUpdateFlow(identity) {
   return (val == 'Update') ? true : false;
 }
 
-def getNationality(identity) {
-    if(identity.containsKey('nationality')) {
-        Object val = identity.getOrDefault('nationality', null);
+def getResidenceStatus(identity) {
+    if(identity.containsKey('residenceStatusCode')) {
+        return identity.getOrDefault('residenceStatusCode', null);
+    }
+
+    if(identity.containsKey('residenceStatus')) {
+        Object val = identity.getOrDefault('residenceStatus', null);
         return val == null ? null :
             (val instanceof String ? ; (String)val : (String) ((List)val).get(0).value);
     }
@@ -84,7 +88,7 @@ def getBioExceptionFlag(identity) {
 }
 
 def getApplicantType() {
-  String itc = getNationality(identity);
+  String itc = getResidenceStatus(identity);
   String genderType = getGenderType(identity);
   String ageCode = getAgeCode(identity);
   boolean isBioExPresent = getBioExceptionFlag(identity);
