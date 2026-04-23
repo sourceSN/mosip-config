@@ -202,9 +202,9 @@
          </otherwise>
       </choice>
    </route>
-   <route id="introducer-validator-->demo-dedupe new route">
+   <route id="introducer-validator-->data-verification new route">
       <from uri="eventbus://introducer-validator-new-bus-out" />
-      <log message="introducer-validator-->demo-dedupe new route ${bodyAs(String)}" />
+      <log message="introducer-validator-->data-verification new route ${bodyAs(String)}" />
       <choice>
          <when>
             <jsonpath>$.[?(@['isValid'] == false &amp;&amp; @['internalError'] == true)]</jsonpath>
@@ -221,10 +221,35 @@
             <to uri="workflow-cmd://anonymous-profile" />
          </when>
          <otherwise>
-            <to uri="eventbus://demo-dedupe-bus-in" />
+            <to uri="eventbus://data-verification-bus-in" />
          </otherwise>
       </choice>
    </route>
+   <route id="data-verification-->demo-dedupe new route">
+        <from uri="eventbus:data-verification-new-bus-out" />
+        <log
+            message="data-verification-->demo-dedupe  new route ${bodyAs(String)}" />
+        <choice>
+         <when>
+            <jsonpath>$.[?(@['isValid'] == false &amp;&amp; @['internalError'] == true)]</jsonpath>
+            <to uri="workflow-cmd://complete-as-failed" />
+            <to uri="workflow-cmd://anonymous-profile" />
+         </when>
+         <when>
+            <jsonpath>$.[?(@['isValid'] == true &amp;&amp; @['internalError'] == true)]</jsonpath>
+            <to uri="workflow-cmd://mark-as-reprocess" />
+         </when>
+         <when>
+            <jsonpath>$.[?(@['isValid'] == false &amp;&amp; @['internalError'] == false)]</jsonpath>
+            <to uri="workflow-cmd://complete-as-failed" />
+            <to uri="workflow-cmd://anonymous-profile" />
+         </when>
+         <otherwise>
+            <to uri="eventbus://demo-dedup-bus-in" />
+         </otherwise>
+      </choice>
+    </route>
+
    <route id="demo-dedupe-->bio-dedupe new route">
       <from uri="eventbus://demo-dedupe-new-bus-out" />
       <log message="demo-dedupe-->bio-dedupe new route ${bodyAs(String)}" />
