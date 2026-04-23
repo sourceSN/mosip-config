@@ -245,7 +245,7 @@
             <to uri="workflow-cmd://anonymous-profile" />
          </when>
          <otherwise>
-            <to uri="eventbus://demo-dedup-bus-in" />
+            <to uri="eventbus://demo-dedupe-bus-in" />
          </otherwise>
       </choice>
     </route>
