@@ -93,20 +93,6 @@ def getGenderType(identity) {
     return null;
 }
 
-def getNationalityType(identity) {
-    if(identity.containsKey('nationalityCode')) {
-        return identity.getOrDefault('nationalityCode', null);
-    }
-
-    if(identity.containsKey('nationality')) {
-        Object val = identity.getOrDefault('nationality', null);
-        return val == null ? null :
-            (val instanceof String ? (String)val : (String) ((List)val).get(0).value);
-    }
-
-    return null;
-}
-
 def getMaritalStatus(identity) {
     if(identity.containsKey('maritalStatusCode')) {
         return identity.getOrDefault('maritalStatusCode', null);
@@ -123,7 +109,9 @@ def getMaritalStatus(identity) {
 
 def getApplicantType() {
   String genderType = getGenderType(identity);
-  String nationalityType = getNationalityType(identity);
+  // 'residenceStatus' is the nationality field in the UI spec (labelled "Nationality"),
+  // so its selected code (SND / DM / FR) is the nationality type.
+  String nationalityType = getResidenceStatus(identity);
   String maritalStatus = getMaritalStatus(identity);
   String ageCode = getAgeCode(identity); // reserved for future age-based conditions
 
