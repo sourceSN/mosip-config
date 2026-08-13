@@ -19,14 +19,14 @@ String MINOR = "MINOR";
 String ADULT = "ADULT";
 
 // Nationality type codes
-String SND = "SND";          // Single Nationality
+String SINGLE_NATIONALITY = "SDN";
 String DUAL_MULTIPLE = "DM"; // Dual/Multiple Nationality
 String FOREIGNER = "FR";     // Foreign National
 
 // Marital status codes
 String SINGLE = "SNG";
 String DIVORCED_WIDOWED = "DWD";
-String MARRIED = "MRD";
+String MARRIED = "102";
 
 def getAgeCode(identity) {
     if(ageGroups == null || !identity.containsKey('dateOfBirth'))
@@ -110,35 +110,40 @@ def getMaritalStatus(identity) {
 def getApplicantType() {
   String genderType = getGenderType(identity);
   // 'residenceStatus' is the nationality field in the UI spec (labelled "Nationality"),
-  // so its selected code (SND / DM / FR) is the nationality type.
+  // so its selected code (SDN / DM / FR) is the nationality type.
   String nationalityType = getResidenceStatus(identity);
   String maritalStatus = getMaritalStatus(identity);
-  String ageCode = getAgeCode(identity); // reserved for future age-based conditions
+  // getAgeCode is deliberately NOT called here: nothing below uses an age code, and a
+  // dateOfBirth this script cannot coerce to String would throw and take the whole
+  // derivation down — leaving applicantType null and every condition on it false.
 
   if(genderType == null || nationalityType == null || maritalStatus == null) {
       return isUpdateFlow(identity) ? "000" : "KER-MSD-147";
   }
 
-  System.out.println(genderType + " - " + nationalityType + " - " + maritalStatus);
+  boolean isNational = nationalityType == SINGLE_NATIONALITY;
+  boolean dualNational = nationalityType == DUAL_MULTIPLE;
+  boolean isForeigner = nationalityType == FOREIGNER;
+  boolean isMarried = maritalStatus == MARRIED;
 
-  // SND or Dual/Multiple nationals
-  if ((nationalityType == SND || nationalityType == DUAL_MULTIPLE) && maritalStatus == SINGLE) {
+  // Single or Dual/Multiple nationals
+  if ((isNational || dualNational) && maritalStatus == SINGLE) {
     return "001";
-  } else if ((nationalityType == SND || nationalityType == DUAL_MULTIPLE) && maritalStatus == DIVORCED_WIDOWED) {
+  } else if ((isNational || dualNational) && maritalStatus == DIVORCED_WIDOWED) {
     return "002";
-  } else if ((nationalityType == SND || nationalityType == DUAL_MULTIPLE) && genderType == MALE && maritalStatus == MARRIED) {
+  } else if ((isNational || dualNational) && genderType == MALE && isMarried) {
     return "003";
-  } else if ((nationalityType == SND || nationalityType == DUAL_MULTIPLE) && genderType == FEMALE && maritalStatus == MARRIED) {
+  } else if ((isNational || dualNational) && genderType == FEMALE && isMarried) {
     return "004";
   }
   // Foreign nationals
-  else if (nationalityType == FOREIGNER && maritalStatus == SINGLE) {
+  else if (isForeigner && maritalStatus == SINGLE) {
     return "005";
-  } else if (nationalityType == FOREIGNER && maritalStatus == MARRIED) {
+  } else if (isForeigner && isMarried) {
     return "006";
-  } else if (nationalityType == FOREIGNER && maritalStatus == DIVORCED_WIDOWED && genderType == MALE) {
+  } else if (isForeigner && maritalStatus == DIVORCED_WIDOWED && genderType == MALE) {
     return "007";
-  } else if (nationalityType == FOREIGNER && maritalStatus == DIVORCED_WIDOWED && genderType == FEMALE) {
+  } else if (isForeigner && maritalStatus == DIVORCED_WIDOWED && genderType == FEMALE) {
     return "008";
   }
 
