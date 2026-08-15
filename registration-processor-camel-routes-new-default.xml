@@ -226,7 +226,7 @@
       </choice>
    </route>
    <route id="data-verification-->demo-dedupe new route">
-        <from uri="eventbus:data-verification-new-bus-out" />
+        <from uri="eventbus://data-verification-new-bus-out" />
         <log
             message="data-verification-->demo-dedupe  new route ${bodyAs(String)}" />
         <choice>

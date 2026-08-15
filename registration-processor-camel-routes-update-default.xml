@@ -171,7 +171,7 @@
             <to uri="eventbus://introducer-validator-bus-in" />
          </when>
          <otherwise>
-            <to uri="eventbus://biometric-authentication-bus-in" />
+            <to uri="eventbus://data-verification-bus-in" />
          </otherwise>
       </choice>
    </route>
@@ -198,13 +198,13 @@
             <to uri="eventbus://introducer-validator-bus-in" />
          </when>
          <otherwise>
-            <to uri="eventbus://biometric-authentication-bus-in" />
+            <to uri="eventbus://data-verification-bus-in" />
          </otherwise>
       </choice>
    </route>
-   <route id="introducer-validator-->biometric-authentication update route">
+   <route id="introducer-validator-->data-verification update route">
       <from uri="eventbus://introducer-validator-update-bus-out" />
-      <log message="introducer-validator-->biometric-authentication update route ${bodyAs(String)}" />
+      <log message="introducer-validator-->data-verification update route ${bodyAs(String)}" />
       <choice>
          <when>
             <jsonpath>$.[?(@['isValid'] == false &amp;&amp; @['internalError'] == true)]</jsonpath>
@@ -217,17 +217,17 @@
          </when>
          <when>
             <jsonpath>$.[?(@['isValid'] == false &amp;&amp; @['internalError'] == false)]</jsonpath>
-            <to uri="workflow-cmd://complete-as-rejected" />
+            <to uri="workflow-cmd://complete-as-failed" />
             <to uri="workflow-cmd://anonymous-profile" />
          </when>
          <otherwise>
-            <to uri="eventbus://biometric-authentication-bus-in" />
+            <to uri="eventbus://data-verification-bus-in" />
          </otherwise>
       </choice>
    </route>
-   <route id="biometric-authentication-stage-->demo-dedupe update route">
-      <from uri="eventbus://biometric-authentication-update-bus-out" />
-      <log message="biometric-authentication-stage-->demo-dedupe update route ${bodyAs(String)}" />
+   <route id="data-verification-->demo-dedupe update route">
+      <from uri="eventbus://data-verification-update-bus-out" />
+      <log message="data-verification-->demo-dedupe update route ${bodyAs(String)}" />
       <choice>
          <when>
             <jsonpath>$.[?(@['isValid'] == false &amp;&amp; @['internalError'] == true)]</jsonpath>
@@ -240,7 +240,7 @@
          </when>
          <when>
             <jsonpath>$.[?(@['isValid'] == false &amp;&amp; @['internalError'] == false)]</jsonpath>
-            <to uri="workflow-cmd://complete-as-rejected" />
+            <to uri="workflow-cmd://complete-as-failed" />
             <to uri="workflow-cmd://anonymous-profile" />
          </when>
          <otherwise>
