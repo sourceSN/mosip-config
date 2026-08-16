@@ -20,7 +20,6 @@ String ADULT = "ADULT";
 
 // Nationality type codes
 String SINGLE_NATIONALITY = "SDN";
-String DUAL_MULTIPLE = "DM"; // Dual/Multiple Nationality
 String FOREIGNER = "FR";     // Foreign National
 
 // Marital status codes
@@ -110,7 +109,7 @@ def getMaritalStatus(identity) {
 def getApplicantType() {
   String genderType = getGenderType(identity);
   // 'residenceStatus' is the nationality field in the UI spec (labelled "Nationality"),
-  // so its selected code (SDN / DM / FR) is the nationality type.
+  // so its selected code (SDN / FR) is the nationality type.
   String nationalityType = getResidenceStatus(identity);
   String maritalStatus = getMaritalStatus(identity);
   // getAgeCode is deliberately NOT called here: nothing below uses an age code, and a
@@ -122,18 +121,17 @@ def getApplicantType() {
   }
 
   boolean isNational = nationalityType == SINGLE_NATIONALITY;
-  boolean dualNational = nationalityType == DUAL_MULTIPLE;
   boolean isForeigner = nationalityType == FOREIGNER;
   boolean isMarried = maritalStatus == MARRIED;
 
-  // Single or Dual/Multiple nationals
-  if ((isNational || dualNational) && maritalStatus == SINGLE) {
+  // Sudanese nationals
+  if (isNational && maritalStatus == SINGLE) {
     return "001";
-  } else if ((isNational || dualNational) && maritalStatus == DIVORCED_WIDOWED) {
+  } else if (isNational && maritalStatus == DIVORCED_WIDOWED) {
     return "002";
-  } else if ((isNational || dualNational) && genderType == MALE && isMarried) {
+  } else if (isNational && genderType == MALE && isMarried) {
     return "003";
-  } else if ((isNational || dualNational) && genderType == FEMALE && isMarried) {
+  } else if (isNational && genderType == FEMALE && isMarried) {
     return "004";
   }
   // Foreign nationals
