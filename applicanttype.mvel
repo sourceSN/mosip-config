@@ -23,9 +23,10 @@ String SINGLE_NATIONALITY = "SDN";
 String FOREIGNER = "FR";     // Foreign National
 
 // Marital status codes
-String SINGLE = "SNG";
-String DIVORCED_WIDOWED = "DWD";
+String SINGLE = "101";
 String MARRIED = "102";
+String WIDOWED = "103";
+String DIVORCED = "104";
 
 def getAgeCode(identity) {
     if(ageGroups == null || !identity.containsKey('dateOfBirth'))
@@ -124,10 +125,14 @@ def getApplicantType() {
   boolean isForeigner = nationalityType == FOREIGNER;
   boolean isMarried = maritalStatus == MARRIED;
 
+  // Widowed and Divorced share document applicant types, but remain separate here;
+  // the UI spec uses maritalStatusCode to apply their different spouse-field rules.
   // Sudanese nationals
   if (isNational && maritalStatus == SINGLE) {
     return "001";
-  } else if (isNational && maritalStatus == DIVORCED_WIDOWED) {
+  } else if (isNational && maritalStatus == WIDOWED) {
+    return "002";
+  } else if (isNational && maritalStatus == DIVORCED) {
     return "002";
   } else if (isNational && genderType == MALE && isMarried) {
     return "003";
@@ -139,9 +144,13 @@ def getApplicantType() {
     return "005";
   } else if (isForeigner && isMarried) {
     return "006";
-  } else if (isForeigner && maritalStatus == DIVORCED_WIDOWED && genderType == MALE) {
+  } else if (isForeigner && maritalStatus == WIDOWED && genderType == MALE) {
     return "007";
-  } else if (isForeigner && maritalStatus == DIVORCED_WIDOWED && genderType == FEMALE) {
+  } else if (isForeigner && maritalStatus == DIVORCED && genderType == MALE) {
+    return "007";
+  } else if (isForeigner && maritalStatus == WIDOWED && genderType == FEMALE) {
+    return "008";
+  } else if (isForeigner && maritalStatus == DIVORCED && genderType == FEMALE) {
     return "008";
   }
 
