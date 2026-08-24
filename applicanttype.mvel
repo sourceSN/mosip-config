@@ -125,15 +125,15 @@ def getApplicantType() {
   boolean isForeigner = nationalityType == FOREIGNER;
   boolean isMarried = maritalStatus == MARRIED;
 
-  // Widowed and Divorced share document applicant types, but remain separate here;
-  // the UI spec uses maritalStatusCode to apply their different spouse-field rules.
+  // Keep widowed and divorced applicants distinct so document master data can offer
+  // Death Certificate and Divorce Certificate only to the applicable status.
   // Sudanese nationals
   if (isNational && maritalStatus == SINGLE) {
     return "001";
   } else if (isNational && maritalStatus == WIDOWED) {
     return "002";
   } else if (isNational && maritalStatus == DIVORCED) {
-    return "002";
+    return "009";
   } else if (isNational && genderType == MALE && isMarried) {
     return "003";
   } else if (isNational && genderType == FEMALE && isMarried) {
@@ -147,11 +147,11 @@ def getApplicantType() {
   } else if (isForeigner && maritalStatus == WIDOWED && genderType == MALE) {
     return "007";
   } else if (isForeigner && maritalStatus == DIVORCED && genderType == MALE) {
-    return "007";
+    return "010";
   } else if (isForeigner && maritalStatus == WIDOWED && genderType == FEMALE) {
     return "008";
   } else if (isForeigner && maritalStatus == DIVORCED && genderType == FEMALE) {
-    return "008";
+    return "011";
   }
 
   return "000";
