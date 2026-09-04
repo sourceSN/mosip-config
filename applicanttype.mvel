@@ -107,6 +107,20 @@ def getMaritalStatus(identity) {
     return null;
 }
 
+def isChecked(value) {
+  if (value == null) { return false; }
+  if (value instanceof Boolean) { return ((Boolean)value).booleanValue(); }
+  String normalized = String.valueOf(value).trim().toLowerCase();
+  return normalized == "true" || normalized == "y";
+}
+
+def hasDeceasedSpouse(identity) {
+  return isChecked(identity.getOrDefault("spouse1Widowed", null)) ||
+      isChecked(identity.getOrDefault("spouse2Widowed", null)) ||
+      isChecked(identity.getOrDefault("spouse3Widowed", null)) ||
+      isChecked(identity.getOrDefault("spouse4Widowed", null));
+}
+
 def getApplicantType() {
   String genderType = getGenderType(identity);
   // 'residenceStatus' is the nationality field in the UI spec (labelled "Nationality"),
@@ -124,16 +138,19 @@ def getApplicantType() {
   boolean isNational = nationalityType == SINGLE_NATIONALITY;
   boolean isForeigner = nationalityType == FOREIGNER;
   boolean isMarried = maritalStatus == MARRIED;
+  boolean isMarriedMaleWithDeceasedSpouse =
+      isMarried && genderType == MALE && hasDeceasedSpouse(identity);
 
   // Keep widowed and divorced applicants distinct so document master data can offer
   // Death Certificate and Divorce Certificate only to the applicable status.
-  // Sudanese nationals
   if (isNational && maritalStatus == SINGLE) {
     return "001";
   } else if (isNational && maritalStatus == WIDOWED) {
     return "002";
   } else if (isNational && maritalStatus == DIVORCED) {
     return "009";
+  } else if (isNational && isMarriedMaleWithDeceasedSpouse) {
+    return "012";
   } else if (isNational && genderType == MALE && isMarried) {
     return "003";
   } else if (isNational && genderType == FEMALE && isMarried) {
@@ -142,6 +159,8 @@ def getApplicantType() {
   // Foreign nationals
   else if (isForeigner && maritalStatus == SINGLE) {
     return "005";
+  } else if (isForeigner && isMarriedMaleWithDeceasedSpouse) {
+    return "013";
   } else if (isForeigner && isMarried) {
     return "006";
   } else if (isForeigner && maritalStatus == WIDOWED && genderType == MALE) {
