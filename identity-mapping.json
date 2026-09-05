@@ -31,10 +31,10 @@
 			"value": "introducerName"
 		},
 		"phone": {
-			"value": "phone"
+			"value": "phoneNumber"
 		},
 		"phoneNumber": {
-			"value": "phone"
+			"value": "phoneNumber"
 		},
 		"email": {
 			"value": "email"
@@ -70,34 +70,34 @@
 			"value": "preferredLang"
 		},
 		"locationHierarchyForProfiling": {
-			"value": "zone,postalCode"
+			"value": "fullAddress"
 		},
 		"addressLine1": {
-			"value": "addressLine1"
+			"value": "fullAddress"
 		},
 		"addressLine2": {
-			"value": "addressLine2"
+			"value": "fullAddress"
 		},
 		"addressLine3": {
-			"value": "addressLine3"
+			"value": "fullAddress"
 		},
 		"location1": {
-			"value": "city"
+			"value": "fullAddress"
 		},
 		"location2": {
-			"value": "region"
+			"value": "fullAddress"
 		},
 		"location3": {
-			"value": "province"
+			"value": "fullAddress"
 		},
 		"postalCode": {
-			"value": "postalCode"
+			"value": "fullAddress"
 		},
 		"location4": {
-			"value": "zone"
+			"value": "fullAddress"
 		},
 		"fullAddress": {
-			"value": "addressLine1,addressLine2,addressLine3,city,region,province,postalCode"
+			"value": "fullAddress"
 		},
 		"bestTwoFingers": {
 			"value": "bestTwoFingers"
@@ -109,10 +109,10 @@
 			"value": "face"
 		},
 		"phone_number": {
-			"value": "phone"
+			"value": "phoneNumber"
 		},
 		"address": {
-			"value": "addressLine1,addressLine2,addressLine3,city,region,province,postalCode"
+			"value": "fullAddress"
 		},
 
 		"individual_id": {
@@ -122,19 +122,133 @@
 		   "value": "fln,ad1,ad2,ad3,cit,reg,pro,poc,cph,em,ph,gen,dob"
 		},  
 		"street_address": {
-			"value": "addressLine1,addressLine2,addressLine3"
+			"value": "fullAddress"
 		},
 		"locality": {
-			"value": "city"
+			"value": "fullAddress"
 		},
 		"region": {
-			"value": "region"
+			"value": "fullAddress"
 		},
 		"postal_code": {
-			"value": "postalCode"
+			"value": "fullAddress"
 		},
 		"country": {
-			"value": "province"
+			"value": "fullAddress"
+		},
+		"birthCertificateNumber": {
+			"value": "birthCertificateNumber"
+		},
+		"bloodType": {
+			"value": "bloodType"
+		},
+		"countryOfBirth": {
+			"value": "countryOfBirth"
+		},
+		"disabilitiesAndChronicDiseases": {
+			"value": "disabilitiesAndChronicDiseases"
+		},
+		"educationalQualification": {
+			"value": "educationalQualification"
+		},
+		"fatherFullName": {
+			"value": "fatherFullName"
+		},
+		"fatherNationalNumber": {
+			"value": "fatherNationalNumber"
+		},
+		"foreignPersonalIdCardNumber": {
+			"value": "foreignPersonalIdCardNumber"
+		},
+		"maritalStatus": {
+			"value": "maritalStatus"
+		},
+		"motherFullName": {
+			"value": "motherFullName"
+		},
+		"motherNameBeforeNaturalization": {
+			"value": "motherNameBeforeNaturalization"
+		},
+		"nameBeforeNaturalization": {
+			"value": "nameBeforeNaturalization"
+		},
+		"nationality": {
+			"value": "nationality"
+		},
+		"nationalityIssuancePlaceAndDate": {
+			"value": "nationalityIssuancePlaceAndDate"
+		},
+		"nationalityNumber": {
+			"value": "nationalityNumber"
+		},
+		"nationalNumber": {
+			"value": "nationalNumber"
+		},
+		"occupation": {
+			"value": "occupation"
+		},
+		"occupationOther": {
+			"value": "occupationOther"
+		},
+		"placeOfBirth": {
+			"value": "placeOfBirth"
+		},
+		"placeOfWork": {
+			"value": "placeOfWork"
+		},
+		"previousNaturalizationNumber": {
+			"value": "previousNaturalizationNumber"
+		},
+		"proofOfNationality": {
+			"value": "proofOfNationality"
+		},
+		"residenceAdministrativeUnit": {
+			"value": "residenceAdministrativeUnit"
+		},
+		"residenceCity": {
+			"value": "residenceCity"
+		},
+		"residenceLocality": {
+			"value": "residenceLocality"
+		},
+		"residenceState": {
+			"value": "residenceState"
+		},
+		"scannedApplicationForm": {
+			"value": "scannedApplicationForm"
+		},
+		"spouse1CivilId": {
+			"value": "spouse1CivilId"
+		},
+		"spouse1FullName": {
+			"value": "spouse1FullName"
+		},
+		"spouse2CivilId": {
+			"value": "spouse2CivilId"
+		},
+		"spouse2FullName": {
+			"value": "spouse2FullName"
+		},
+		"spouse3CivilId": {
+			"value": "spouse3CivilId"
+		},
+		"spouse3FullName": {
+			"value": "spouse3FullName"
+		},
+		"spouse4CivilId": {
+			"value": "spouse4CivilId"
+		},
+		"spouse4FullName": {
+			"value": "spouse4FullName"
+		},
+		"witnessAddress": {
+			"value": "witnessAddress"
+		},
+		"witnessCivilId": {
+			"value": "witnessCivilId"
+		},
+		"witnessFullName": {
+			"value": "witnessFullName"
 		},
 		"password": {
 			"value": "password"
